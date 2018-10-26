@@ -77,6 +77,7 @@ public class TransferFileThread implements Runnable {
 					}
 
 				}
+				System.out.print(" | (" + totalBytesRead + "/" + fileSize + ")\r");
 			}
 			System.out.println();
 			outputStream.flush();

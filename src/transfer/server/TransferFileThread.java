@@ -65,7 +65,7 @@ public class TransferFileThread implements Runnable {
 				totalBytesRead += bytesRead;
 				tmpfileSize -= bytesRead;
 
-				int percentageRecv = (int) (totalBytesRead / fileSize) * 100;
+				int percentageRecv = (int) (totalBytesRead / fileSize * 100);
 				System.out.printf(clientSocket.getInetAddress() + "transferring %2d%% |", percentageRecv);
 				for (int i = 0; i < 50; ++i) {
 					if (percentageRecv > i * 2) {

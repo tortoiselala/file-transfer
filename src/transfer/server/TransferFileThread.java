@@ -65,29 +65,26 @@ public class TransferFileThread implements Runnable {
 				totalBytesRead += bytesRead;
 				tmpfileSize -= bytesRead;
 
-				int percentageRecv = (int) (totalBytesRead / fileSize * 100);
-				System.out.println("Percentage : " + percentageRecv);
-				System.out.println("total bytes read" + totalBytesRead);
-				System.out.println("file size" + fileSize);
-				System.out.println();
-				System.out.printf(clientSocket.getInetAddress() + "transferring %2d%% |", percentageRecv);
+				double percentageRecv = totalBytesRead * 100 / fileSize;
+				System.out.printf(clientSocket.getInetAddress() + "  transferring %2.2f%% |", percentageRecv);
 				for (int i = 0; i < 50; ++i) {
 					if (percentageRecv > i * 2) {
 						System.out.print("=");
-					} else if (percentageRecv == i * 2) {
+					} else if (percentageRecv >= i * 2 && percentageRecv <= (i * 2 + 1)) {
 						System.out.print(">");
 					} else {
 						System.out.print(" ");
 					}
 
 				}
-				System.out.print(" | (" + totalBytesRead + "/" + fileSize + ")\r");
+				System.out.print(" | (" + totalBytesRead + "/" + fileSize + ")  | \r");
 
 			}
 			System.out.println();
 			outputStream.flush();
 			outputStream.close();
-			System.out.println("[Info] file transfer completed! total size(bytes)" + totalBytesRead);
+			System.out.println(
+					"[Info] file transfer completed! total size(bytes)" + totalBytesRead + "file path: " + fileName);
 
 		} catch (IOException ex) {
 			System.out.println("[error] " + ex.getMessage());
